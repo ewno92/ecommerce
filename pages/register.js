@@ -1,9 +1,11 @@
+import { Container, Form, Button } from "react-bootstrap";
 import Head from "next/head";
 import Link from "next/link";
-import { Container, Form, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import valid from "../utils/valid";
+// import { DataContext } from "../store/GlobalState";
 import { postData } from "../utils/fetchData";
+import { useRouter } from "next/router";
 
 const Register = () => {
   const initialState = {
