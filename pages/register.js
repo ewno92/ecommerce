@@ -1,23 +1,40 @@
-import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
+import valid from "../utils/valid";
 
 const Register = () => {
-  const initialState = { name: "", email: "", password: "", cf_password: "" };
+  const initialState = {
+    name: "",
+    email: "",
+    password: "",
+    cf_password: "",
+  };
   const [userData, setUserData] = useState(initialState);
   const { name, email, password, cf_password } = userData;
+
+  const [values, setValues] = useState({ error: "", message: "" });
+  const { error, message } = values;
+
+  const showError = () =>
+    error ? <div className="alert alert-danger">{message}</div> : "";
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
-    console.log(userData);
+
+    // console.log(userData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userData);
+
+    const errMsg = valid(name, email, password, cf_password);
+    if (errMsg) {
+      console.log(errMsg);
+      setValues({ ...values, error: true, message: errMsg });
+    }
   };
 
   return (
@@ -30,19 +47,21 @@ const Register = () => {
         style={{ maxWidth: "500px" }}
         onSubmit={handleSubmit}
       >
-        <div className="form-group mb-3" controlId="name">
+        {showError()}
+        <div className="form-group mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" name="name" onChange={handleChangeInput} />
         </div>
-        <Form.Group className="mb-3" controlId="email">
+        <Form.Group className="mb-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
+            // <input>
             type="email"
             name="email"
             onChange={handleChangeInput}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -51,7 +70,7 @@ const Register = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
