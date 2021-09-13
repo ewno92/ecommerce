@@ -1,5 +1,7 @@
 module.exports = {
+  reactStrictMode: true,
   env: {
-    mongodburl: process.env.MONGODB_URL,
+    MONGO_URL: process.env.MONGODB_URL,
+    BASE_URL: process.env.BASE_URL,
   },
 };

@@ -7,12 +7,14 @@ import valid from "../utils/valid";
 import { postData } from "../utils/fetchData";
 import { useRouter } from "next/router";
 
+const baseUrl = process.env.BASE_URL;
+
 const Register = () => {
   const initialState = {
-    name: "",
-    email: "",
-    password: "",
-    cf_password: "",
+    name: "tim",
+    email: "ehlee512@gmail.com",
+    password: "fdsjkl",
+    cf_password: "fdsjkl",
   };
   const [userData, setUserData] = useState(initialState);
   const { name, email, password, cf_password } = userData;
@@ -38,12 +40,14 @@ const Register = () => {
     e.preventDefault();
 
     const errMsg = valid(name, email, password, cf_password);
+    console.log(errMsg);
     if (errMsg) {
       console.log(errMsg);
       setValues({ ...values, error: errMsg, loading: "1" });
     } else {
+      console.log(`${baseUrl}`);
       const res = await postData("auth/register", userData);
-      if (res.err) return console.log("error");
+      if (res.err) return setValues({ ...values, error: res.err });
     }
   };
 
