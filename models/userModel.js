@@ -1,6 +1,6 @@
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-const userSchema = new Mongoose.userSchema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -26,10 +26,12 @@ const userSchema = new Mongoose.userSchema(
     avatar: {
       type: String,
       default:
-        "https://res.cloudinary.com/ewno92/image/upload/v1631084101/avatar_drqolo.svg",
+        "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 let Dataset = mongoose.models.user || mongoose.model("user", userSchema);

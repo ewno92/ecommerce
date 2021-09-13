@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import valid from "../utils/valid";
+import { postData } from "../utils/fetchData";
 
 const Register = () => {
   const initialState = {
@@ -14,26 +15,33 @@ const Register = () => {
   const [userData, setUserData] = useState(initialState);
   const { name, email, password, cf_password } = userData;
 
-  const [values, setValues] = useState({ error: "", message: "" });
-  const { error, message } = values;
+  const [values, setValues] = useState({ error: "", loading: "" });
+  const { error, loading } = values;
 
   const showError = () =>
-    error ? <div className="alert alert-danger">{message}</div> : "";
+    error ? <div className="alert alert-danger">{error}</div> : "";
+  const showLoading = () =>
+    loading ? <div className="alert alert-info">Loading...</div> : "";
+  // const showMessage = () =>
+  //   message ? <div className="alert alert-info">{message}</div> : "";
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
-
+    setValues({ ...values, error: "" });
     // console.log(userData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errMsg = valid(name, email, password, cf_password);
     if (errMsg) {
       console.log(errMsg);
-      setValues({ ...values, error: true, message: errMsg });
+      setValues({ ...values, error: errMsg, loading: "1" });
+    } else {
+      const res = await postData("auth/register", userData);
+      if (res.err) return console.log("error");
     }
   };
 
@@ -48,6 +56,7 @@ const Register = () => {
         onSubmit={handleSubmit}
       >
         {showError()}
+        {showLoading()}
         <div className="form-group mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" name="name" onChange={handleChangeInput} />
@@ -56,7 +65,7 @@ const Register = () => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             // <input>
-            type="email"
+            type="text"
             name="email"
             onChange={handleChangeInput}
           />
