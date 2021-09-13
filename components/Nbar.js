@@ -10,7 +10,7 @@ const Nbar = () => {
           <a className='navbar-brand"'>Logo</a>
         </Link> */}
         <Link href="/">
-          <a className="navbar-brand">Logo</a>
+          <a className="navbar-brand">Ecoomerce</a>
         </Link>
         {/* <Navbar.Brand href="/">Logo</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
