@@ -1,3 +1,5 @@
+import ToastA from "../components/ToastA";
+
 export default function Home() {
   return (
     <div>
@@ -8,6 +10,7 @@ export default function Home() {
         <i class="fas fa-user"></i>
       </a>
       hi
+      <ToastA />
     </div>
   );
 }
