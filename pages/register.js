@@ -3,13 +3,17 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useContext, useEffect } from "react";
 import valid from "../utils/valid";
-// import { DataContext } from "../store/GlobalState";
 import { postData } from "../utils/fetchData";
 import { useRouter } from "next/router";
+import { connect } from "mongoose";
+//Reducer
+import { DataContext } from "../store/GlobalState";
 
 const baseUrl = process.env.BASE_URL;
 
 const Register = () => {
+  const { state, dispatch } = useContext(DataContext);
+
   const initialState = {
     name: "tim",
     email: "ehlee512@gmail.com",
@@ -42,8 +46,9 @@ const Register = () => {
     const errMsg = valid(name, email, password, cf_password);
     console.log(errMsg);
     if (errMsg) {
+      // setValues({ ...values, error: errMsg, loading: "" });
       console.log(errMsg);
-      setValues({ ...values, error: errMsg, loading: "1" });
+      return dispatch({ type: "NOTIFY", payload: { error: errMsg } });
     } else {
       console.log(`${baseUrl}`);
       const res = await postData("auth/register", userData);

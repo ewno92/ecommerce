@@ -1,4 +1,4 @@
-import ToastA from "../components/ToastA";
+import Toast from "../components/Toast";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         <i class="fas fa-user"></i>
       </a>
       hi
-      <ToastA />
+      {/* <Toast msg="hello" /> */}
     </div>
   );
 }
