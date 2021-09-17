@@ -1,6 +1,7 @@
 import Toast from "../components/Toast";
 
 export default function Home() {
+  const errMsg = "error";
   return (
     <div>
       hello

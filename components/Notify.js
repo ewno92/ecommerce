@@ -10,8 +10,18 @@ const Notify = () => {
   return (
     <>
       {notify.loading && <Loading />}
-      {notify.error && <Toast />}
-      {notify.success && <Toast />}
+      {notify.error && (
+        <Toast
+          msg={{ msg: notify.err, title: "Error" }}
+          handleShow={() => dispatch({ type: "NOTIFY", payload: {} })}
+        />
+      )}
+      {notify.success && (
+        <Toast
+          msg={{ msg: notify.sucess, title: "success" }}
+          handleShow={() => dispatch({ type: "NOTIFY", payload: {} })}
+        />
+      )}
       {/* {notify.loading && <Loading />} */}
       {/* {notify.error && (
         <Toast

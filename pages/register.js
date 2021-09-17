@@ -47,7 +47,7 @@ const Register = () => {
     console.log(errMsg);
     if (errMsg) {
       // setValues({ ...values, error: errMsg, loading: "" });
-      console.log(errMsg);
+      console.log(`errMsg: ${errMsg}`);
       return dispatch({ type: "NOTIFY", payload: { error: errMsg } });
     } else {
       console.log(`${baseUrl}`);
