@@ -8,11 +8,11 @@ export const DataProvider = ({ children }) => {
   const initialState = {
     notify: {},
     auth: {},
-    cart: [],
-    modal: [],
-    orders: [],
-    users: [],
-    categories: [],
+    // cart: [],
+    // modal: [],
+    // orders: [],
+    // users: [],
+    // categories: [],
   };
 
   const [state, dispatch] = useReducer(reducers, initialState);
