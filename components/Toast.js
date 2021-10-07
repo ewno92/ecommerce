@@ -18,7 +18,7 @@ const Toast = ({ msg, handleShow }) => {
           onClick={handleShow}
         />
       </div>
-      <div className="toast-body">{msg.msg}test</div>
+      <div className="toast-body">{msg.msg}</div>
     </div>
   );
 };

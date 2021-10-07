@@ -50,12 +50,18 @@ const Register = () => {
       console.log(`errMsg: ${errMsg}`);
       return dispatch({ type: "NOTIFY", payload: { error: errMsg } });
     } else {
-      console.log(`${baseUrl}`);
+      // console.log(`${baseUrl}`);
       const res = await postData("auth/register", userData);
       if (res.err) return setValues({ ...values, error: res.err });
     }
+    dispatch({
+      type: "NOTIFY",
+      payload: { error: "Sign up successful! log in to your account." },
+    });
+    router.push("/signin");
   };
 
+  const router = useRouter();
   return (
     <Container>
       <Head>
