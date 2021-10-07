@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { connect } from "mongoose";
 //Reducer
 import { DataContext } from "../store/GlobalState";
+import Loading from "../components/Loading";
 
 const baseUrl = process.env.BASE_URL;
 
@@ -28,9 +29,9 @@ const Register = () => {
 
   const showError = () =>
     error ? <div className="alert alert-danger">{error}</div> : "";
-  const showLoading = () =>
-    loading ? <div className="alert alert-info">Loading...</div> : "";
-  // const showMessage = () =>
+  const showLoading = () => (loading ? <Loading /> : "");
+  // loading ? <div className="alert alert-info">Loading...</div> : "";
+
   //   message ? <div className="alert alert-info">{message}</div> : "";
 
   const handleChangeInput = (e) => {
@@ -54,19 +55,26 @@ const Register = () => {
       const res = await postData("auth/register", userData);
       if (res.err) return setValues({ ...values, error: res.err });
     }
+    setValues({ ...values, loading: true });
     dispatch({
       type: "NOTIFY",
-      payload: { error: "Sign up successful! log in to your account." },
+      payload: { error: "Register Success!" },
     });
     router.push("/signin");
   };
 
   const router = useRouter();
+
+  useEffect(() => {
+    // setValues({ ...values, loading: true });
+  }, []);
+
   return (
     <Container>
       <Head>
         <title>Register Page</title>
       </Head>
+
       <Form
         className="mx-auto mt-5"
         style={{ maxWidth: "500px" }}
